@@ -1,17 +1,18 @@
 export default async function fetchWeatherData(location) {
-  const response = await fetch(
-    `https://api.weatherapi.com/v1/current.json?key=a960293cd53d42bd911182230230904&q=${location}`
+  if (!location) location = "london";
+  const forecastResponse = await fetch(
+    `https://api.weatherapi.com/v1/forecast.json?key=a960293cd53d42bd911182230230904&q=${location}&days=8`
   );
 
-  const data = await response.json();
+  const forecastData = await forecastResponse.json();
 
-  formatWeatherData(data);
+  return formatWeatherData(forecastData);
 }
 
 async function formatWeatherData(data) {
   await data;
 
-  const myData = {
+  const weatherData = {
     location: {
       country: data.location.country,
       name: data.location.name,
@@ -33,9 +34,22 @@ async function formatWeatherData(data) {
         direction: data.current.wind_dir,
         wind_mph: data.current.wind_mph,
         wind_kph: data.current.wind_kph,
+        wind_degree: data.current.wind_degree,
       },
     },
+    forecast: {
+      astro: {
+        is_sun_up: data.forecast.forecastday[0].astro.is_sun_up,
+        is_moon_up: data.forecast.forecastday[0].astro.is_moon_up,
+        sunrise: data.forecast.forecastday[0].astro.sunrise,
+        sunset: data.forecast.forecastday[0].astro.sunset,
+      },
+      date: data.forecast.forecastday[0].date,
+      hour: data.forecast.forecastday[0].hour,
+    },
+    weekly: data.forecast.forecastday,
   };
 
-  console.log(myData);
+  console.log(weatherData);
+  return weatherData;
 }
