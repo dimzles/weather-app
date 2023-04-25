@@ -1,16 +1,8 @@
 import "./style.css";
 import fetchWeatherData from "./modules/weather";
+import { setWeatherInfo, handleInput } from "./modules/displayController";
 
-function handleInput() {
-  const input = document.querySelector("input");
-
-  fetchWeatherData(input.value);
-
-  input.value = "";
-}
-
-fetchWeatherData("london");
-
+handleInput();
 document.getElementById("search").addEventListener("click", (e) => {
   e.preventDefault();
   handleInput();
