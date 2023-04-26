@@ -13,6 +13,7 @@
   --primary: #121212;
   --secondary: #1d1d1d;
   --accent: rgb(109, 1, 197);
+  --wind-degree: 0deg;
 }
 
 
@@ -65,6 +66,8 @@ main {
   font-size: 1rem;
   padding: 8px;
   border: none;
+  color: white;
+  background-color: var(--accent);
 }
 
 #hourly-card {
@@ -87,20 +90,24 @@ main {
   grid-area: 2 / 2 / 3 / 3;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin: 1rem;
   padding: 1rem;
   border-radius: 8px;
   background-color: var(--secondary);
-  gap: 3rem;
 }
 
-.location-data, .temperature-data {
+.location-data, .temperature-data, #time-data {
   display: flex;
   flex-direction: column;
   align-items: center;
   color: white;
   font-family: var(--main-font);
-  gap: 1rem;
+  gap: 8px;
+}
+
+#time-data {
+  font-size: 1.5rem;
 }
 
 #wind-card {
@@ -126,6 +133,7 @@ main {
 
 .fa-arrow-up-long {
   font-size: 8rem;
+  transform: rotate(var(--wind-degree))
 }
 
 #forecast-card {
@@ -159,4 +167,14 @@ footer {
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: white;
+  transition: transform 0.3s ease-in-out
+}
+
+.footer-link:hover {
+  transform: rotate(360deg) scale(1.2);
 }
