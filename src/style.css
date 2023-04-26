@@ -133,7 +133,8 @@ main {
 
 .fa-arrow-up-long {
   font-size: 8rem;
-  transform: rotate(var(--wind-degree))
+  transform: rotate(var(--wind-degree));
+  transition: transform 400ms ease-in-out
 }
 
 #forecast-card {
@@ -152,6 +153,13 @@ main {
 .forecast-h1 {
   grid-area: 1 / 1 / 2 / 4;
   margin: auto;
+}
+
+.forecast-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 footer {
