@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/865caf9e64.js" crossorigin="anonymous"></script>
+  <title>the weather</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="header-txt">the weather<i class="fa-solid fa-cloud-moon"></i></h1>
+    </header>
+    <main>
+      <div class="form-container">
+        <form action="#">
+          <div class="input-container">
+            <input id="location-input" type="text" placeholder="Enter location...">
+            <button id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+        </form>
+      </div>
+      <div id="hourly-card">
+        <h1 class="hourly-h1">Hourly</h1>
+      </div>
+      <div id="location-card">
+        <div class="location-data">
+          <h1 id="location">location</h1>
+          <p id="region">region</p>
+        </div>
+        <div id="time-data">
+        </div>
+        <div class="temperature-data">
+          <h1 id="temperature-text"></h1>
+          <p id="feelslike-temp"></p>
+          <img id="condition-img" src="" alt="">
+          <h1 id="condition">condition</h1>
+        </div>
+      </div>
+      <div id="wind-card">
+          <h1 id="wind-dir" class="wind-item">wind direction</h1>
+          <i id="wind-arrow" class="fa-solid fa-arrow-up-long wind-item"></i>
+          <p id="wind-speed" class="wind-item">wind speed</p>
+      </div>
+      <div id="forecast-card">
+      </div>
+    </main>
+    <footer>
+      <p class="footer-text">Created by dimzles<a class="footer-link" href="http://github.com/dimzles"><i class="fa-brands fa-github"></i></a></p>
+    </footer>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
