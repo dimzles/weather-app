@@ -50,6 +50,5 @@ async function formatWeatherData(data) {
     weekly: data.forecast.forecastday,
   };
 
-  console.log(weatherData);
   return weatherData;
 }
