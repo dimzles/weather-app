@@ -21,6 +21,10 @@ body {
   height: 100vh;
 }
 
+.fa-solid {
+  pointer-events: none;
+}
+
 .container {
   display: grid;
   min-height: 100%;
@@ -68,6 +72,7 @@ main {
   border: none;
   color: white;
   background-color: var(--accent);
+  cursor: pointer;
 }
 
 #hourly-card {
@@ -79,11 +84,53 @@ main {
   border-radius: 8px;
   color: white;
   font-family: var(--main-font);
-  grid-template-rows: repeat(10, 1fr)
+  grid-template-rows: repeat(3, auto)
 }
 
 .hourly-h1 {
   margin: auto;
+}
+
+#hour-card-container {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.hour-card {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  justify-items: center;
+}
+
+.hour-time, .hour-img, .hour-temp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hour-img {
+  width: 2rem;
+}
+
+.hour-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.hour-btn {
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 2px;
+  width: 32px;
+  border: none;
+  cursor: pointer;
+  background-color: var(--accent);
+  color: white;
 }
 
 #location-card {

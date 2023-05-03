@@ -1,6 +1,9 @@
 import fetchWeatherData from "./weather";
 import { getDay } from "date-fns";
 
+let globalIndex = 0;
+let lastSearchedTerm;
+
 function getWeekdayName(date) {
   const splitDate = date.split("-");
 
@@ -31,19 +34,46 @@ function getWeekdayName(date) {
   }
 }
 
-async function handleInput() {
-  const input = document.querySelector("input");
+function showNextHourlyForecast() {
+  if (globalIndex === 16) return;
+  globalIndex = globalIndex + 8;
+  refreshWeatherDisplay();
+}
 
-  const data = await fetchWeatherData(input.value);
-
-  input.value = "";
-
-  setWeatherInfo(data);
+function showPreviousHourlyForecast() {
+  if (globalIndex === 0) return;
+  globalIndex = globalIndex - 8;
+  refreshWeatherDisplay();
 }
 
 function setHourlyCard(data) {
-  const hourlyCard = document.getElementById("hourly-card");
-  const dailyForecast = data.forecast.hour;
+  const hourlyCard = document.getElementById("hour-card-container");
+  const hourlyForecast = data.forecast.hour;
+
+  hourlyCard.textContent = "";
+
+  for (let i = globalIndex; i < globalIndex + 8; i++) {
+    const hourContainer = document.createElement("div");
+    const icon = document.createElement("img");
+    const time = document.createElement("h3");
+    const temperature = document.createElement("h3");
+
+    hourContainer.classList.add("hour-card");
+
+    icon.src = hourlyForecast[i].condition.icon;
+    time.textContent = hourlyForecast[i].time.split(" ")[1];
+    temperature.textContent = `${hourlyForecast[i].temp_c}°C`;
+
+    icon.classList.add("hour-img");
+    time.classList.add("hour-time");
+    temperature.classList.add("hour-temp");
+
+    hourContainer.appendChild(time);
+    hourContainer.appendChild(icon);
+    hourContainer.appendChild(temperature);
+
+    hourlyCard.appendChild(hourContainer);
+  }
 }
 
 function setLocationCard(data) {
@@ -71,6 +101,9 @@ function setWindCard(data) {
   const windDirection = document.getElementById("wind-dir");
   const windSpeed = document.getElementById("wind-speed");
 
+  windDirection.textContent = "";
+  windSpeed.textContent = "";
+
   windDirection.textContent = data.current.wind.direction;
   windSpeed.textContent = `${data.current.wind.wind_mph} mph`;
   document.documentElement.style.setProperty(
@@ -81,7 +114,7 @@ function setWindCard(data) {
 
 function setForecastCard(data) {
   const forecastCard = document.getElementById("forecast-card");
-  const forecastH1 = document.createElement("h1");
+  const forecastH1 = document.createElement("h2");
   const weeklyForecast = data.weekly;
 
   forecastCard.textContent = "";
@@ -91,7 +124,7 @@ function setForecastCard(data) {
 
   for (let i = 0; i < weeklyForecast.length; i++) {
     const forecastContainer = document.createElement("div");
-    const date = document.createElement("h2");
+    const date = document.createElement("h3");
     const conditionImg = document.createElement("img");
     const temperature = document.createElement("p");
     const avgTemperature = document.createElement("p");
@@ -134,4 +167,21 @@ async function setWeatherInfo(data) {
   setForecastCard(data);
 }
 
-export { handleInput };
+async function handleInput() {
+  const input = document.querySelector("input");
+
+  const data = await fetchWeatherData(input.value);
+  lastSearchedTerm = input.value;
+
+  input.value = "";
+
+  setWeatherInfo(data);
+}
+
+async function refreshWeatherDisplay() {
+  const data = await fetchWeatherData(lastSearchedTerm);
+
+  setWeatherInfo(data);
+}
+
+export { handleInput, showNextHourlyForecast, showPreviousHourlyForecast };
